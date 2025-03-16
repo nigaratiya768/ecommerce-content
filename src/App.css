@@ -1,0 +1,60 @@
+.image-container {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards {
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-body {
+  height: 300px;
+  display: flex;
+}
+.address-container {
+  width: 50%;
+}
+.row {
+  display: flex;
+  align-items: center;
+  margin: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.row p {
+  margin: 7px;
+}
+
+a {
+  color: white;
+  margin: 7px;
+  text-decoration: none;
+}
+.about-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.about-company {
+  padding: 15px;
+}
+.icon {
+  margin: 8px;
+}
+.logo {
+  height: 80px;
+}
+
+.layout {
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
