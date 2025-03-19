@@ -58,3 +58,111 @@ a {
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
+.description-page {
+  height: 80vh;
+
+  display: flex;
+}
+.product-img {
+  height: 80vh;
+  width: 50%;
+}
+.product-description {
+  height: 80vh;
+  width: 50%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.size-buttons {
+  display: flex;
+  border: transparent;
+}
+.size-button {
+  border-radius: 100%;
+  margin: 3px;
+}
+.wishlist-cart-button {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+}
+.wishlist-button {
+  background-color: rgb(72, 149, 128);
+}
+.labels {
+  color: grey;
+  font-size: medium;
+  font-weight: bold;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+table {
+  width: 70vw;
+}
+
+table,
+th {
+  border: 2px solid grey;
+  border-collapse: collapse;
+}
+.address-form {
+  width: 70vw;
+}
+.form-row {
+  display: flex;
+  margin-left: 10px;
+}
+.input-box {
+  margin: 8px;
+  width: 100%;
+}
+.input-box input {
+  border: 2px solid white;
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  padding: 5px 7px;
+  border-radius: 7px;
+}
+.place-order-button {
+  background-color: rgb(46, 100, 82);
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  padding: 5px 7px;
+  border-radius: 7px;
+}
+
+.login-page {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form-container {
+  width: 40%;
+}
+.form-part input,
+button {
+  margin-bottom: 15px;
+  border: 2px solid white;
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  padding: 5px 7px;
+  border-radius: 7px;
+}
+.form-part button {
+  background-color: rgb(85, 143, 124);
+}
