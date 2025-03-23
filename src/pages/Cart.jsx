@@ -2,10 +2,12 @@ import React from "react";
 import temp8 from "../assets/temp8.jpeg";
 import temp9 from "../assets/temp9.jpeg";
 import Address from "../component/Address";
+import Header from "../component/Header";
 
 function Cart() {
   return (
     <>
+      <Header />
       <div className="container">
         <table>
           <tr>

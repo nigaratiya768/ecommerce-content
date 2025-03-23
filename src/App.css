@@ -143,8 +143,8 @@ th {
   border-radius: 7px;
 }
 
-.login-page {
-  height: 90vh;
+.page-container {
+  padding-top: 50px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -153,7 +153,7 @@ th {
 .login-form-container {
   width: 40%;
 }
-.form-part input,
+/* .form-part input,
 button {
   margin-bottom: 15px;
   border: 2px solid white;
@@ -162,7 +162,46 @@ button {
   width: 100%;
   padding: 5px 7px;
   border-radius: 7px;
-}
+} */
 .form-part button {
   background-color: rgb(85, 143, 124);
+}
+.product-upload-form input {
+  margin-bottom: 15px;
+  border: 2px solid white;
+  font-size: 20px;
+  height: 50px;
+  width: 100%;
+  padding: 5px 7px;
+  border-radius: 7px;
+}
+.checkbox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.checkbox input {
+  height: 30px;
+  width: 30px;
+  margin-left: 7px;
+}
+.material-and-care-container {
+  display: flex;
+}
+.material-and-care-container button {
+  margin-left: 4px;
+  margin-top: 20px;
+  width: 45px;
+}
+.m-container {
+  margin-right: 5px;
+}
+
+.p-button {
+  display: block;
+}
+
+.header-menu-bar {
+  width: 100%;
+  display: flex;
 }

@@ -1,9 +1,49 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import axios from "axios";
+import { Toast } from "primereact/toast";
 
 function Loginpage() {
+  const [data, setData] = useState();
+
+  const [loading, setLoading] = useState(false);
+  const toastTopCenter = useRef(null);
+
+  async function login() {
+    try {
+      const response = await axios.post(
+        "http://localhost:4001/api/user_login",
+        data
+      );
+      localStorage.setItem("token", response.data.token);
+      setLoading(false);
+      if (response.status == 200) {
+        //alert("product saved successfully");
+        toastTopCenter.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "login successful",
+          life: 3000,
+        });
+      }
+
+      console.log(response);
+    } catch (error) {
+      setLoading(false);
+      //alert("product not saved");
+      toastTopCenter.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "invailid credentials ",
+        life: 3000,
+      });
+      console.log("error in login", error);
+    }
+  }
+
   return (
     <>
-      <div className="login-page">
+      <Toast ref={toastTopCenter} position="top-center" />
+      <div className="page-container">
         <div className="login-form-container">
           <div className="heading">
             <h2>Log in to your account</h2>
@@ -12,7 +52,15 @@ function Loginpage() {
           <div className="form-part">
             <label for="email">Email</label>
             <br />
-            <input type="email" placeholder="Email" id="email" name="email" />
+            <input
+              type="email"
+              placeholder="Email"
+              id="email"
+              name="email"
+              onChange={(e) => {
+                setData({ ...data, email: e.target.value });
+              }}
+            />
             <br />
             <label for="password">Password</label>
             <br />
@@ -21,9 +69,12 @@ function Loginpage() {
               placeholder="Password"
               id="password"
               name="password"
+              onChange={(e) => {
+                setData({ ...data, password: e.target.value });
+              }}
             />
             <br />
-            <button>Sign in</button>
+            <button onClick={login}>Sign in</button>
           </div>
         </div>
       </div>

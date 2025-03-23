@@ -12,16 +12,15 @@ import ProductDescription from "./pages/ProductDescription";
 import Cart from "./pages/Cart";
 import Address from "./component/Address";
 import Loginpage from "./pages/Loginpage";
+import ProductUpload from "./pages/ProductUpload";
+import PageRoutes from "./routes/PageRoutes";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      {/* <Home /> */}
-      {/* <ProductDescription /> */}
-      {/* <Cart /> */}
-      <Loginpage />
+      <PageRoutes />
     </>
   );
 }

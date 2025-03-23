@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "../component/Header";
-
+import queryString from "query-string";
 import { Galleria } from "primereact/galleria";
 import Footer from "../component/Footer";
 
-const initialImages = [
-  "https://www.bunaai.com/cdn/shop/products/buydressesonlineindia-05781.jpg?v=1661756559&width=540",
-  "https://www.bunaai.com/cdn/shop/products/buydressesonlineindia-05770.jpg?v=1661756542",
-  "https://www.bunaai.com/cdn/shop/products/buydressesonlineindia-05790.jpg?v=1661756576&width=540",
-  "https://www.bunaai.com/cdn/shop/products/buydressesonlineindia-05786.jpg?v=1661756568&width=540",
-];
 function ProductDescription() {
-  const [images, setImages] = useState(initialImages);
+  const [product, setProduct] = useState({});
+  async function getProduct() {
+    try {
+      console.log("calling api");
+      const queries = queryString.parse(window.location.search);
+      const response = await axios.get(
+        "http://localhost:4001/api/get_product/" + queries.id
+      );
+      setProduct(response.data);
+      console.log(response);
+    } catch (error) {
+      console.log("error in getProduct", error);
+    }
+  }
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   const responsiveOptions = [
     {
       breakpoint: "991px",
@@ -35,7 +47,20 @@ function ProductDescription() {
       />
     );
   };
+  const addToCart = (item) => {
+    try {
+      console.log(item);
+      const cartList = localStorage.getItem("cartItem");
 
+      if (cartList) {
+        const cartItems = JSON.parse(cartList);
+        cartItems.push(item);
+        localStorage.setItem("cartItem", JSON.stringify(cartItems));
+      } else {
+        localStorage.setItem("cartItem", JSON.stringify([item]));
+      }
+    } catch (error) {}
+  };
   const thumbnailTemplate = (item) => {
     return <img src={item} alt={item.alt} style={{ height: 150 }} />;
   };
@@ -47,7 +72,7 @@ function ProductDescription() {
         <div className="product-img">
           <div className="card">
             <Galleria
-              value={images}
+              value={["http://localhost:4001/" + product.image]}
               responsiveOptions={responsiveOptions}
               numVisible={3}
               style={{ maxWidth: "640px" }}
@@ -61,40 +86,48 @@ function ProductDescription() {
             className="product-name"
             style={{ fontSize: 25, fontWeight: "bold" }}
           >
-            Maxi-dress
+            {product.product_name}
           </p>
           <p className="price" style={{ fontSize: 20, fontWeight: "bold" }}>
-            INR: 2,350
+            INR: {product.price}
           </p>
           <p className="labels">Select Size</p>
           <div className="size-buttons">
-            <button className="size-button">S</button>
-            <button className="size-button">M</button>
-            <button className="size-button">L</button>
-            <button className="size-button">Xl</button>
+            {product &&
+              product.size &&
+              product.size.map((v) => {
+                return <button className="size-button">{v}</button>;
+              })}
           </div>
           <div>
-            <button className="wishlist-cart-button">
+            {/* <button className="wishlist-cart-button">
               <i className="pi pi-heart"></i>
               <span style={{ marginLeft: 4, fontSize: 17 }}>wishlist</span>
-            </button>
-            <button className="wishlist-cart-button wishlist-button">
+            </button> */}
+            <button
+              className="wishlist-cart-button wishlist-button"
+              onClick={() => {
+                addToCart(product);
+              }}
+            >
               <i className="pi pi-cart-arrow-down"></i>
               <span style={{ marginLeft: 4, fontSize: 17 }}>add to cart</span>
             </button>
           </div>
-          <p className="labels">PRODUCT DETAILS</p>
-          <p>
-            Looking for some trending cotton dresses inspiration? You have
-            reached the right place, the Amara Belt Cotton Maxi Dress with
-            contemporary design, balloon sleeves, and bright hues is the perfect
-            fit and flare dress for your evening.
-          </p>
+          <p className="labels">Product Details</p>
+          <p>{product.product_detail}</p>
 
           <p className="labels"> MATERIAL & CARE</p>
           <ul>
-            <li>Cotton</li>
-            <li>Machine-wash</li>
+            {product &&
+              product.material_and_care &&
+              product.material_and_care.map((v) => {
+                return (
+                  <li>
+                    {v.key} : {v.value}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>
