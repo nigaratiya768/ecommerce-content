@@ -49,10 +49,11 @@ function Loginpage() {
             <h2>Log in to your account</h2>
             <p>Welcome back! please enter your details</p>
           </div>
-          <div className="form-part">
+          <div className="login-form-part">
             <label for="email">Email</label>
             <br />
             <input
+              className="login-input"
               type="email"
               placeholder="Email"
               id="email"
@@ -65,6 +66,7 @@ function Loginpage() {
             <label for="password">Password</label>
             <br />
             <input
+              className="login-input"
               type="password"
               placeholder="Password"
               id="password"

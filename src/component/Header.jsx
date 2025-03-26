@@ -1,25 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router";
 
-import { Menubar } from "primereact/menubar";
-
 function Header() {
-  const items = [
-    {
-      label: "Home",
-      icon: "pi pi-home",
-    },
-    {
-      label: "Cloths",
-      icon: "pi pi-shopping-bag",
-    },
-
-    {
-      label: "Contact",
-      icon: "pi pi-envelope",
-      badge: 3,
-    },
-  ];
   return (
     <>
       {/* <div className="card">
