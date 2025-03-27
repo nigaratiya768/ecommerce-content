@@ -29,6 +29,7 @@ function Products() {
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Quantity</th>
           </tr>
           {productlist.map((v) => {
             return (

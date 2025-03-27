@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Toast } from "primereact/toast";
+import { useNavigate } from "react-router";
+import { NavLink } from "react-router";
 
 function Loginpage() {
   const [data, setData] = useState();
-
+  let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toastTopCenter = useRef(null);
 
@@ -24,6 +26,7 @@ function Loginpage() {
           detail: "login successful",
           life: 3000,
         });
+        navigate("/admin/dashboard");
       }
 
       console.log(response);
@@ -77,6 +80,13 @@ function Loginpage() {
             />
             <br />
             <button onClick={login}>Sign in</button>
+            <br />
+            <NavLink
+              to={"/"}
+              style={{ color: "blue", textDecoration: "underline" }}
+            >
+              Go To Home
+            </NavLink>
           </div>
         </div>
       </div>

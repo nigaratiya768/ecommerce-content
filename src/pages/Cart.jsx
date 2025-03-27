@@ -14,12 +14,12 @@ function Cart() {
       if (localCartList) {
         //console.log(temp);
         setCartList(JSON.parse(localCartList));
-        // const pList = JSON.parse(localCartList);
-        // let sum = 0;
-        // for (i = 0; i < pList.length; i++) {
-        //   sum = sum + pList[i].price;
-        // }
-        //setTotalPrice(sum);
+        const pList = JSON.parse(localCartList);
+        let sum = 0;
+        for (i = 0; i < pList.length; i++) {
+          sum = sum + pList[i].price;
+        }
+        setTotalPrice(sum);
       }
     } catch (error) {
       setCartList([]);

@@ -229,6 +229,17 @@ function ProductUpload() {
             loading={loading}
             onClick={saveProduct}
           />
+          <label for="quantity">Quantity</label>
+          <br />
+          <input
+            id="quantity"
+            type="number"
+            name="quantity"
+            onChange={(e) => {
+              setProduct({ ...product, quantity: e.target.value });
+            }}
+          />
+          <br />
 
           {/* <button onClick={saveProduct}>{loading ? "saving" : "save"}</button> */}
         </div>
