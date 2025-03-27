@@ -223,12 +223,6 @@ function ProductUpload() {
               </button>
             </div>
           </div>
-          <Button
-            label="save"
-            icon="pi pi-check"
-            loading={loading}
-            onClick={saveProduct}
-          />
           <label for="quantity">Quantity</label>
           <br />
           <input
@@ -240,6 +234,12 @@ function ProductUpload() {
             }}
           />
           <br />
+          <Button
+            label="save"
+            icon="pi pi-check"
+            loading={loading}
+            onClick={saveProduct}
+          />
 
           {/* <button onClick={saveProduct}>{loading ? "saving" : "save"}</button> */}
         </div>

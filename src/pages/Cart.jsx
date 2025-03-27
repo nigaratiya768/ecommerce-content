@@ -11,12 +11,13 @@ function Cart() {
     try {
       const localCartList = localStorage.getItem("cartItem");
       console.log("cart", localCartList);
+      const pList = JSON.parse(localCartList);
       if (localCartList) {
         //console.log(temp);
         setCartList(JSON.parse(localCartList));
-        const pList = JSON.parse(localCartList);
+
         let sum = 0;
-        for (i = 0; i < pList.length; i++) {
+        for (let i = 0; i < pList.length; i++) {
           sum = sum + pList[i].price;
         }
         setTotalPrice(sum);
@@ -34,8 +35,10 @@ function Cart() {
   return (
     <>
       <Header />
+      <h2>My Cart</h2>
+      <hr></hr>
       <div className="container">
-        <table>
+        <table className="table">
           <tr>
             <th>Product</th>
             <th>Price</th>
@@ -80,9 +83,20 @@ function Cart() {
               </tr>
             );
           })}
+          <tr>
+            <td
+              colSpan={3}
+              style={{ textAlign: "left", fontWeight: "bold", fontSize: 25 }}
+            >
+              Total
+            </td>
+            <td style={{ textAlign: "center", fontWeight: "bold" }}>
+              {totalPrice}
+            </td>
+          </tr>
         </table>
 
-        <Address />
+        <Address products={cartList} />
       </div>
     </>
   );
