@@ -23,6 +23,71 @@ function ProductUpload() {
 
   async function saveProduct() {
     try {
+      if (product.product_name.length < 3) {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "name is required",
+          life: 3000,
+        });
+        return;
+      }
+      if (product.price == "") {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "price is required",
+          life: 3000,
+        });
+        return;
+      }
+
+      if (product.color == "") {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "color is required",
+          life: 3000,
+        });
+        return;
+      }
+      if (product.product_details == "") {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "product detail is required",
+          life: 3000,
+        });
+        return;
+      }
+      if (size.size.length < 1) {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "Product size is required",
+          life: 3000,
+        });
+        return;
+      }
+      if (!image) {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "Image is required",
+          life: 3000,
+        });
+        return;
+      }
+      if (materialAndCAre.length < 1) {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "Material and care is required",
+          life: 3000,
+        });
+        return;
+      }
+
       console.log("save", product, size, materialAndCareArray);
       const formData = new FormData();
       formData.append("product_name", product.product_name);

@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router";
+import { PrimeIcons } from "primereact/api";
 
 function Header() {
   return (
@@ -11,7 +12,10 @@ function Header() {
         <div style={{ width: "80%" }}>
           <ul style={{ listStyle: "none" }}>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">
+                <i className="pi pi-home" style={{ marginRight: 5 }}></i>
+                Home
+              </Link>
             </li>
           </ul>
         </div>
@@ -24,10 +28,20 @@ function Header() {
             }}
           >
             <li>
-              <Link to="/cart">Cart</Link>
+              <Link to="/cart">
+                <i
+                  className="pi pi-shopping-cart"
+                  style={{ marginRight: 5 }}
+                ></i>
+                Cart
+              </Link>
             </li>
-            <li>
-              <Link to="/login_page">Login</Link>
+            <li style={{ marginLeft: 8 }}>
+              <Link to="/login_page">
+                {" "}
+                <i className="pi pi-envelope" style={{ marginRight: 5 }}></i>
+                Login
+              </Link>
             </li>
           </ul>
         </div>
