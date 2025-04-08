@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Header from "../component/Header";
 import queryString from "query-string";
 import { Galleria } from "primereact/galleria";
 import Footer from "../component/Footer";
+import { Toast } from "primereact/toast";
 
 function ProductDescription() {
   const [product, setProduct] = useState({});
+  const [size, setSize] = useState("");
+  const toastTopCenter = useRef(null);
+
   async function getProduct() {
     try {
       console.log("calling api");
@@ -50,8 +54,18 @@ function ProductDescription() {
   const addToCart = (item) => {
     try {
       console.log(item);
+      if (size == "") {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Info",
+          detail: "please select size ",
+          life: 3000,
+        });
+        return;
+      }
       const cartList = localStorage.getItem("cartItem");
-
+      item.quantity = 1;
+      item.size = size;
       if (cartList) {
         const cartItems = JSON.parse(cartList);
         cartItems.push(item);
@@ -59,13 +73,23 @@ function ProductDescription() {
       } else {
         localStorage.setItem("cartItem", JSON.stringify([item]));
       }
+      toastTopCenter.current.show({
+        severity: "info",
+        summary: "Info",
+        detail: "Item added to cart ",
+        life: 3000,
+      });
     } catch (error) {}
   };
   const thumbnailTemplate = (item) => {
     return <img src={item} alt={item.alt} style={{ height: 150 }} />;
   };
+
+  console.log("size", size);
+
   return (
     <>
+      <Toast ref={toastTopCenter} position="top-center" />
       <Header />
 
       <div className="description-page">
@@ -96,7 +120,22 @@ function ProductDescription() {
             {product &&
               product.size &&
               product.size.map((v) => {
-                return <button className="size-button">{v}</button>;
+                return (
+                  <button
+                    className="size-button"
+                    style={{
+                      width: 28,
+                      height: 28,
+                      backgroundColor:
+                        size == v ? "rgb(55, 108, 73)" : "rgb(107, 118, 111)",
+                    }}
+                    onClick={() => {
+                      setSize(v);
+                    }}
+                  >
+                    {v}
+                  </button>
+                );
               })}
           </div>
           <div>

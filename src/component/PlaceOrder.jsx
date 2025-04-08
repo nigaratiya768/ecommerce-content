@@ -3,11 +3,19 @@ import axios from "axios";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 
-function Address({ products, setCartList, setTotalPrice }) {
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+function PlaceOrder({ products, setCartList, setTotalPrice }) {
   const [address, setAddress] = useState({
     name: "",
     mobile: "",
-    email: "",
+    email: localStorage.getItem("email"),
     pincode: "",
     locality: "",
     address: "",
@@ -41,6 +49,15 @@ function Address({ products, setCartList, setTotalPrice }) {
           severity: "info",
           summary: "Error",
           detail: "Enter Valid Mobile Number",
+          life: 3000,
+        });
+        return;
+      }
+      if (!validateEmail(address.email)) {
+        toastTopCenter.current.show({
+          severity: "info",
+          summary: "Error",
+          detail: "invalid email",
           life: 3000,
         });
         return;
@@ -91,7 +108,7 @@ function Address({ products, setCartList, setTotalPrice }) {
         return;
       }
       const product_ids = products.map((v) => {
-        return { product_id: v._id, quantity: 1 };
+        return { product_id: v._id, quantity: v.quantity, size: v.size };
       });
 
       const data = {
@@ -106,9 +123,19 @@ function Address({ products, setCartList, setTotalPrice }) {
         state: address.state,
       };
       console.log(data);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toastTopCenter.current.show({
+          severity: "error",
+          summary: "error",
+          detail: "please login first",
+          life: 3000,
+        });
+      }
       const response = await axios.post(
         "http://localhost:4001/api/add_order",
-        data
+        data,
+        { headers: { Authorization: token } }
       );
       if (response.status == 200) {
         //alert("product saved successfully");
@@ -189,6 +216,7 @@ function Address({ products, setCartList, setTotalPrice }) {
               id="email"
               name="email"
               value={address.email}
+              disabled={true}
               onChange={(e) => {
                 setAddress({ ...address, email: e.target.value });
               }}
@@ -267,6 +295,17 @@ function Address({ products, setCartList, setTotalPrice }) {
               }}
             />
           </div>
+          <div className="input-box">
+            <label for="payment">Payment type</label>
+            <br />
+            <input
+              type="text"
+              id="payment"
+              name="payment"
+              disabled={true}
+              value={"Cash on delivery"}
+            />
+          </div>
         </div>
         <div className="form-row ">
           <div className="input-box">
@@ -280,4 +319,4 @@ function Address({ products, setCartList, setTotalPrice }) {
   );
 }
 
-export default Address;
+export default PlaceOrder;

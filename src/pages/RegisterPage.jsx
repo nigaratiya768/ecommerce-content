@@ -4,57 +4,78 @@ import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router";
 
-function Loginpage() {
+function RegisterPage() {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState();
   let navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const toastTopCenter = useRef(null);
-
-  async function login() {
+  async function signUp() {
     try {
       const response = await axios.post(
-        "http://localhost:4001/api/user_login",
+        "http://localhost:4001/api/user_register",
         data
       );
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
-      localStorage.setItem("email", response.data.email);
-      setLoading(false);
+
       if (response.status == 200) {
         //alert("product saved successfully");
         toastTopCenter.current.show({
           severity: "success",
           summary: "Success",
-          detail: "login successful",
+          detail: "sign up successfully",
           life: 3000,
         });
-        window.location.href = "/dashboard"; //navigate("/dashboard");
+        navigate("/login_page");
       }
 
       console.log(response);
     } catch (error) {
-      setLoading(false);
-      //alert("product not saved");
+      console.log("error", error);
+      const msg = error.response.data.msg;
       toastTopCenter.current.show({
         severity: "error",
         summary: "Error",
-        detail: "invailid credentials ",
+        detail: msg,
         life: 3000,
       });
-      console.log("error in login", error);
     }
   }
-
   return (
     <>
       <Toast ref={toastTopCenter} position="top-center" />
       <div className="page-container">
         <div className="login-form-container">
           <div className="heading">
-            <h2>Log in to your account</h2>
-            <p>Welcome back! please enter your details</p>
+            <h2>Sign up</h2>
           </div>
+
           <div className="login-form-part">
+            <label for="name">Name</label>
+            <br />
+            <input
+              className="login-input"
+              type="text"
+              placeholder="Name"
+              id="name"
+              name="name"
+              onChange={(e) => {
+                setData({ ...data, name: e.target.value });
+              }}
+            />
+            <br />
+            <label for="mobile">Mobile</label>
+            <br />
+            <input
+              className="login-input"
+              type="text"
+              placeholder="Mobile"
+              id="mobile"
+              name="name"
+              onChange={(e) => {
+                setData({ ...data, mobile: e.target.value });
+              }}
+            />
+            <br />
             <label for="email">Email</label>
             <br />
             <input
@@ -81,17 +102,24 @@ function Loginpage() {
               }}
             />
             <br />
-            <button onClick={login}>Sign in</button>
+            <button
+              onClick={() => {
+                signUp();
+              }}
+            >
+              Sign up
+            </button>
             <br />
             <div style={{ display: "flex", alignItems: "center" }}>
-              <p style={{ color: "rgb(159, 88, 2)" }}>New user?</p>
+              <p style={{ color: "rgb(159, 88, 2)" }}>Already have account?</p>
               <NavLink
-                to={"/sign_up"}
+                to={"/login_page"}
                 style={{ color: "blue", textDecoration: "underline" }}
               >
-                sign up
+                sign in
               </NavLink>
             </div>
+
             <br />
             <NavLink
               to={"/"}
@@ -105,4 +133,5 @@ function Loginpage() {
     </>
   );
 }
-export default Loginpage;
+
+export default RegisterPage;

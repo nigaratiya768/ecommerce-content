@@ -3,6 +3,7 @@ import Header from "../component/Header";
 import Slider from "../component/Slider";
 import ProductList from "../component/ProductList";
 import Footer from "../component/Footer";
+import RegisterPage from "./RegisterPage";
 
 function Home() {
   return (

@@ -38,7 +38,7 @@ function ProductList() {
           addToCart(item);
         }}
       >
-        Add to cart
+        View Product
       </Button>
     );
   };

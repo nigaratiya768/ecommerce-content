@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 function Products() {
   const [productlist, setProductList] = useState([]);
+  const navigate = useNavigate();
 
   const getProducts = async () => {
     try {
@@ -14,6 +16,25 @@ function Products() {
       console.log(response);
     } catch (error) {
       console.log("error fetching getProducts", error);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      const response = await axios.delete(
+        "http://localhost:4001/api/delete_product/" + id
+      );
+      getProducts();
+    } catch (error) {
+      console.log("error in deleteProduct", error);
+    }
+  };
+
+  const editProduct = async (data) => {
+    try {
+      navigate("/product_update", { state: data });
+    } catch (error) {
+      console.log("error in editProduct", error);
     }
   };
 
@@ -30,6 +51,7 @@ function Products() {
             <th>Price</th>
             <th>Stock</th>
             <th>Quantity</th>
+            <th>Action</th>
           </tr>
           {productlist.map((v) => {
             return (
@@ -44,6 +66,34 @@ function Products() {
                 <td>{v.product_name}</td>
                 <td>INR: {v.price}</td>
                 <td>In stock</td>
+                <td>{v.quantity}</td>
+                <td>
+                  <button
+                    style={{ padding: 10, borderRadius: 10 }}
+                    onClick={() => {
+                      deleteProduct(v._id);
+                    }}
+                  >
+                    <i className="pi pi-trash" style={{ fontSize: "1rem" }}></i>
+                  </button>
+
+                  <button
+                    style={{
+                      borderRadius: 10,
+                      marginLeft: 8,
+                      padding: 10,
+                      backgroundColor: "rgb(120, 190, 153)",
+                    }}
+                    onClick={() => {
+                      editProduct(v);
+                    }}
+                  >
+                    <i
+                      className="pi pi-pencil"
+                      style={{ fontSize: "1rem" }}
+                    ></i>
+                  </button>
+                </td>
               </tr>
             );
           })}

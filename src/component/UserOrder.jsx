@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 
-function Orders() {
+function UserOrders() {
   const [orderProductlist, setOrderProductList] = useState([]);
   const [visible, setVisible] = useState(false);
   const [productDetails, setProductDetails] = useState({});
@@ -17,20 +17,6 @@ function Orders() {
       console.log(response);
     } catch (error) {
       console.log("error fetching getOrderProducts", error);
-    }
-  };
-
-  const updateOrderStatus = async (id, status) => {
-    try {
-      const response = await axios.put(
-        "http://localhost:4001/api/update_order_status/" + id,
-        { status },
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      );
-    } catch (error) {
-      console.log("error in updateOrderStatus", error);
     }
   };
 
@@ -53,10 +39,9 @@ function Orders() {
           <tr>
             <th>Products</th>
 
-            <th>Customer Name</th>
+            <th>Order Status</th>
             <th>Phone Number</th>
             <th>Address</th>
-            <th>Status</th>
           </tr>
           {orderProductlist.map((v) => {
             return (
@@ -76,7 +61,7 @@ function Orders() {
                   })}
                 </td>
 
-                <td>{v.name}</td>
+                <td>{v.status}</td>
                 <td>{v.mobile}</td>
 
                 <td>
@@ -91,20 +76,6 @@ function Orders() {
                     <br />
                     <span>pincode: {v.pincode}</span>
                   </div>
-                </td>
-                <td>
-                  <select
-                    onChange={(e) => {
-                      updateOrderStatus(v._id, e.target.value);
-                    }}
-                    defaultValue={v.status}
-                  >
-                    <option value={"order placed"}>order placed</option>
-                    <option value={"order confirmed"}>order confirmed</option>
-                    <option value={"order dispatched"}>order dispatched</option>
-                    <option value={"out for delivery"}>out for delivery</option>
-                    <option value={"delivered"}>delivered</option>
-                  </select>
                 </td>
               </tr>
             );
@@ -136,7 +107,7 @@ function Orders() {
               <b>{productDetails.product_name}</b>
             </span>
             <br />
-            <span>Size: {productDetails.size} ,</span>
+            <span>Size: {productDetails.size} </span>
             <br />
             <span>Quantity: {productDetails.quantity}</span>
             <br />
@@ -150,4 +121,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default UserOrders;
