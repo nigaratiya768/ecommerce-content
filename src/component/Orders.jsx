@@ -97,7 +97,7 @@ function Orders() {
                     onChange={(e) => {
                       updateOrderStatus(v._id, e.target.value);
                     }}
-                    defaultValue={v.status}
+                    defaultValue={"order placed"}
                   >
                     <option value={"order placed"}>order placed</option>
                     <option value={"order confirmed"}>order confirmed</option>

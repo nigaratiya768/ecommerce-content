@@ -50,7 +50,10 @@ function DashboardStats() {
             </p>
           </div>
         </Card>
-        <Card title="Total Sales" style={{ backgroundColor: "bisque" }}>
+        <Card
+          title="Total Sales"
+          style={{ backgroundColor: " rgb(143, 29, 200)" }}
+        >
           <div
             style={{
               padding: 30,
@@ -61,7 +64,7 @@ function DashboardStats() {
             }}
           >
             <i className="pi pi-chart-line" style={{ fontSize: "10rem" }}></i>
-            <p style={{ fontSize: "7rem", marginLeft: 25, fontWeight: "bold" }}>
+            <p style={{ fontSize: "5rem", marginLeft: 25, fontWeight: "bold" }}>
               {stat?.totalSales}
             </p>
           </div>

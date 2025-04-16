@@ -11,7 +11,7 @@ const validateEmail = (email) => {
     );
 };
 
-function PlaceOrder({ products, setCartList, setTotalPrice }) {
+function PlaceOrder({ products, setCartList, setTotalPrice, totalPrice }) {
   const [address, setAddress] = useState({
     name: "",
     mobile: "",
@@ -121,6 +121,7 @@ function PlaceOrder({ products, setCartList, setTotalPrice }) {
         address: address.address,
         city: address.city,
         state: address.state,
+        order_value: totalPrice,
       };
       console.log(data);
       const token = localStorage.getItem("token");
@@ -298,13 +299,12 @@ function PlaceOrder({ products, setCartList, setTotalPrice }) {
           <div className="input-box">
             <label for="payment">Payment type</label>
             <br />
-            <input
-              type="text"
-              id="payment"
-              name="payment"
-              disabled={true}
-              value={"Cash on delivery"}
-            />
+            <select>
+              <option>UPI</option>
+              <option>Credit/Debit/ATM card</option>
+              <option>Net banking</option>
+              <option>Cash on delivery</option>
+            </select>
           </div>
         </div>
         <div className="form-row ">

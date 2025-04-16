@@ -51,7 +51,7 @@ function Products() {
             <th>Price</th>
             <th>Stock</th>
             <th>Quantity</th>
-            <th>Action</th>
+            <th></th>
           </tr>
           {productlist.map((v) => {
             return (

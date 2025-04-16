@@ -187,6 +187,7 @@ function Cart() {
           products={cartList}
           setCartList={setCartList}
           setTotalPrice={setTotalPrice}
+          totalPrice={totalPrice}
         />
       </div>
     </>

@@ -318,3 +318,12 @@ button {
   display: flex;
   justify-content: center;
 }
+
+select {
+  width: 100%;
+  height: 48px;
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: medium;
+}

@@ -3,6 +3,14 @@ import axios from "axios";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 
+export let category = [
+  "anarkali",
+  "kurta set",
+  "co-ord set",
+  "salwar suit",
+  "saree",
+];
+
 function ProductUpload() {
   const [product, setProduct] = useState({
     product_name: "",
@@ -10,6 +18,7 @@ function ProductUpload() {
     color: "",
     product_details: "",
     quantity: 1,
+    category: category[0],
   });
   const [size, setSize] = useState([]);
   const [image, setImage] = useState();
@@ -103,6 +112,7 @@ function ProductUpload() {
         JSON.stringify(materialAndCareArray)
       );
       formData.append("image", image);
+      formData.append("category", product.category);
 
       setLoading(true);
       const response = await axios.post(
@@ -184,6 +194,18 @@ function ProductUpload() {
             }}
           />
           <br />
+          <label for="category">Category</label>
+          <select
+            defaultValue={category[0]}
+            onChange={(e) => {
+              setProduct({ ...product, category: e.target.value });
+            }}
+          >
+            {category.map((v) => {
+              return <option value={v}>{v}</option>;
+            })}
+          </select>
+          <br />
           <label for="product-size">Size</label>
           <div className="checkbox">
             <input
@@ -235,6 +257,23 @@ function ProductUpload() {
               }}
             />
             <label>Large</label>
+          </div>
+          <div className="checkbox">
+            <input
+              type="checkbox"
+              value={"Free size"}
+              onChange={(e) => {
+                if (!size.includes(e.target.value)) {
+                  setSize([...size, e.target.value]);
+                } else {
+                  const new_size = size.filter((v) => {
+                    return v != e.target.value;
+                  });
+                  setSize([...new_size]);
+                }
+              }}
+            />
+            <label>Free size</label>
           </div>
           <label for="product-detail">Product Details</label>
           <br />

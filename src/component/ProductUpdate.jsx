@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { NavLink, useLocation } from "react-router";
+import { category } from "./ProductUpload";
 
 function ProductUpdate() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function ProductUpdate() {
     color: "",
     product_detail: "",
     quantity: 1,
+    category: category[0],
   });
   const [size, setSize] = useState([]);
   const [image, setImage] = useState();
@@ -156,9 +158,6 @@ function ProductUpdate() {
 
       <div className="page-container">
         <div className="product-upload-form" style={{ width: "50vw" }}>
-          <NavLink to={"/dashboard"}>
-            <Button>Back</Button>
-          </NavLink>
           <br />
           <h2>Edit product</h2>
           <hr></hr>
@@ -200,6 +199,18 @@ function ProductUpdate() {
             }}
           />
           <br /> */}
+          <label for="category">Category</label>
+          <select
+            defaultValue={category[0]}
+            onChange={(e) => {
+              setProduct({ ...product, category: e.target.value });
+            }}
+          >
+            {category.map((v) => {
+              return <option value={v}>{v}</option>;
+            })}
+          </select>
+          <br />
           <label for="product-size">Size</label>
           <div className="checkbox">
             <input
@@ -252,6 +263,25 @@ function ProductUpdate() {
             />
             <label>Large</label>
           </div>
+
+          <div className="checkbox">
+            <input
+              type="checkbox"
+              value={"Free size"}
+              onChange={(e) => {
+                if (!size.includes(e.target.value)) {
+                  setSize([...size, e.target.value]);
+                } else {
+                  const new_size = size.filter((v) => {
+                    return v != e.target.value;
+                  });
+                  setSize([...new_size]);
+                }
+              }}
+            />
+            <label>Free size</label>
+          </div>
+          <br />
           <label for="product-detail">Product Detail</label>
           <br />
           <input
@@ -334,7 +364,9 @@ function ProductUpdate() {
             loading={loading}
             onClick={editProduct}
           />
-
+          <NavLink to={"/dashboard"}>
+            <Button>Back</Button>
+          </NavLink>
           {/* <button onClick={saveProduct}>{loading ? "saving" : "save"}</button> */}
         </div>
       </div>
