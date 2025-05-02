@@ -5,6 +5,7 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { NavLink, useLocation } from "react-router";
 import { category } from "./ProductUpload";
+import { baseUrl } from "../config/config";
 
 function ProductUpdate() {
   const location = useLocation();
@@ -113,7 +114,7 @@ function ProductUpdate() {
 
       setLoading(true);
       const response = await axios.put(
-        "http://localhost:4001/api/update_product/" + data._id,
+        baseUrl + "api/update_product/" + data._id,
         { ...product, size }
       );
       setLoading(false);

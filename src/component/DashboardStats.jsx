@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "primereact/card";
 import axios from "axios";
+import { baseUrl } from "../config/config";
 
 function DashboardStats() {
   const [stat, setStat] = useState();
 
   async function getStats() {
     try {
-      const response = await axios.get("http://localhost:4001/api/stats");
+      const response = await axios.get(baseUrl + "api/stats");
 
       setStat(response.data);
       console.log(response);

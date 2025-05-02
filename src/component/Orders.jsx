@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
+import { baseUrl } from "../config/config";
 
 function Orders() {
   const [orderProductlist, setOrderProductList] = useState([]);
@@ -9,7 +10,7 @@ function Orders() {
 
   const getOrderProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:4001/api/get_orders", {
+      const response = await axios.get(baseUrl + "api/get_orders", {
         headers: { Authorization: localStorage.getItem("token") },
       });
 
@@ -23,7 +24,7 @@ function Orders() {
   const updateOrderStatus = async (id, status) => {
     try {
       const response = await axios.put(
-        "http://localhost:4001/api/update_order_status/" + id,
+        baseUrl + "api/update_order_status/" + id,
         { status },
         {
           headers: { Authorization: localStorage.getItem("token") },
@@ -66,7 +67,7 @@ function Orders() {
                     return (
                       <img
                         alt="img"
-                        src={"http://localhost:4001/" + p.product_id?.image}
+                        src={baseUrl + p.product_id?.image}
                         style={{ height: 75, borderRadius: 20 }}
                         onClick={() =>
                           showProductDetails(p.product_id, p?.size, p?.quantity)
@@ -127,10 +128,7 @@ function Orders() {
         }}
       >
         <div style={{ display: "flex" }}>
-          <img
-            src={"http://localhost:4001/" + productDetails.image}
-            style={{ height: 200 }}
-          />
+          <img src={baseUrl + productDetails.image} style={{ height: 200 }} />
           <div style={{ marginLeft: 20 }}>
             <span style={{ fontSize: 28 }}>
               <b>{productDetails.product_name}</b>

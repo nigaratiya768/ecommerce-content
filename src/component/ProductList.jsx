@@ -5,6 +5,7 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { TabView, TabPanel } from "primereact/tabview";
 import { category } from "./ProductUpload";
+import { baseUrl } from "../config/config";
 
 function ProductList() {
   const [productlist, setProductList] = useState([]);
@@ -18,9 +19,7 @@ function ProductList() {
   let navigate = useNavigate();
   const getProducts = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4001/api/get_products"
-      );
+      const response = await axios.get(baseUrl + "api/get_products");
 
       setProductList(response.data);
       console.log(response);
@@ -84,9 +83,7 @@ function ProductList() {
                             footer={() => {
                               return footer(v);
                             }}
-                            header={() =>
-                              header("http://localhost:4001/" + v.image)
-                            }
+                            header={() => header(baseUrl + v.image)}
                             className="md:w-25rem"
                           >
                             <div>INR: {v.price}</div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { baseUrl } from "../config/config";
 
 function Products() {
   const [productlist, setProductList] = useState([]);
@@ -8,9 +9,7 @@ function Products() {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4001/api/get_products"
-      );
+      const response = await axios.get(baseUrl + "api/get_products");
 
       setProductList(response.data);
       console.log(response);
@@ -21,9 +20,7 @@ function Products() {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await axios.delete(
-        "http://localhost:4001/api/delete_product/" + id
-      );
+      const response = await axios.delete(baseUrl + "api/delete_product/" + id);
       getProducts();
     } catch (error) {
       console.log("error in deleteProduct", error);
@@ -59,7 +56,7 @@ function Products() {
                 <td>
                   <img
                     alt="img"
-                    src={"http://localhost:4001/" + v.image}
+                    src={baseUrl + v.image}
                     style={{ height: "150px" }}
                   />
                 </td>

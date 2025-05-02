@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
+import { baseUrl } from "../config/config";
 
 export let category = [
   "anarkali",
@@ -115,10 +116,7 @@ function ProductUpload() {
       formData.append("category", product.category);
 
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:4001/api/add_product",
-        formData
-      );
+      const response = await axios.post(baseUrl + "api/add_product", formData);
       setLoading(false);
       if (response.status == 200) {
         //alert("product saved successfully");

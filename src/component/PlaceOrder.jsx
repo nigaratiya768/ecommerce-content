@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
+import { baseUrl } from "../config/config";
 
 const validateEmail = (email) => {
   return String(email)
@@ -133,11 +134,9 @@ function PlaceOrder({ products, setCartList, setTotalPrice, totalPrice }) {
           life: 3000,
         });
       }
-      const response = await axios.post(
-        "http://localhost:4001/api/add_order",
-        data,
-        { headers: { Authorization: token } }
-      );
+      const response = await axios.post(baseUrl + "api/add_order", data, {
+        headers: { Authorization: token },
+      });
       if (response.status == 200) {
         //alert("product saved successfully");
         toastTopCenter.current.show({

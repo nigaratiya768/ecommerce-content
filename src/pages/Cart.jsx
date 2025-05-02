@@ -5,6 +5,7 @@ import PlaceOrder from "../component/PlaceOrder";
 import Header from "../component/Header";
 import empty_cart from "../assets/empty-cart.png";
 import { Toast } from "primereact/toast";
+import { baseUrl } from "../config/config";
 
 function Cart() {
   const [cartList, setCartList] = useState([]);
@@ -118,7 +119,7 @@ function Cart() {
                     >
                       <img
                         alt="test-img"
-                        src={"http://localhost:4001/" + v.image}
+                        src={baseUrl + v.image}
                         style={{ height: 100 }}
                       />
                       <div style={{ margin: 5 }}>

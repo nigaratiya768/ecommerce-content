@@ -3,6 +3,7 @@ import axios from "axios";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router";
+import { baseUrl } from "../config/config";
 
 function RegisterPage() {
   const [data, setData] = useState();
@@ -11,10 +12,7 @@ function RegisterPage() {
   const toastTopCenter = useRef(null);
   async function signUp() {
     try {
-      const response = await axios.post(
-        "http://localhost:4001/api/user_register",
-        data
-      );
+      const response = await axios.post(baseUrl + "api/user_register", data);
       localStorage.setItem("token", response.data.token);
 
       if (response.status == 200) {
@@ -66,6 +64,7 @@ function RegisterPage() {
             <label for="mobile">Mobile</label>
             <br />
             <input
+              maxLength={10}
               className="login-input"
               type="text"
               placeholder="Mobile"

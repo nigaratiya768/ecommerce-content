@@ -3,6 +3,7 @@ import axios from "axios";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router";
+import { baseUrl } from "../config/config";
 
 function Loginpage() {
   const [data, setData] = useState();
@@ -12,10 +13,7 @@ function Loginpage() {
 
   async function login() {
     try {
-      const response = await axios.post(
-        "http://localhost:4001/api/user_login",
-        data
-      );
+      const response = await axios.post(baseUrl + "api/user_login", data);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
       localStorage.setItem("email", response.data.email);

@@ -5,6 +5,7 @@ import queryString from "query-string";
 import { Galleria } from "primereact/galleria";
 import Footer from "../component/Footer";
 import { Toast } from "primereact/toast";
+import { baseUrl } from "../config/config";
 
 function ProductDescription() {
   const [product, setProduct] = useState({});
@@ -16,7 +17,7 @@ function ProductDescription() {
       console.log("calling api");
       const queries = queryString.parse(window.location.search);
       const response = await axios.get(
-        "http://localhost:4001/api/get_product/" + queries.id
+        baseUrl + "api/get_product/" + queries.id
       );
       setProduct(response.data);
       console.log(response);
@@ -96,7 +97,7 @@ function ProductDescription() {
         <div className="product-img">
           <div className="card">
             <Galleria
-              value={["http://localhost:4001/" + product.image]}
+              value={[baseUrl + product.image]}
               responsiveOptions={responsiveOptions}
               numVisible={3}
               style={{ maxWidth: "640px" }}
